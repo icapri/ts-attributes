@@ -4,6 +4,11 @@
 export type Nullable<T> = T | null;
 
 /**
+ * Represents a type which could possibly be null or undefined.
+ */
+export type Nullish<T> = T | null | undefined;
+
+/**
  * Represents a positive integer.
  */
 export type PositiveInt<N extends number> = number extends N

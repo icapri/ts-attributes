@@ -7,6 +7,7 @@
     "build": "tsc",
     "format": "prettier --write \"src/**/*.ts\" \"src/**/*.js\"",
     "lint": "tslint -p tsconfig.json",
+    "prepare" : "npm run build",
     "test": "jest --config jestconfig.json"
   },
   "repository": {
@@ -15,7 +16,7 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/i-kapri/ts-attributes/issues"
   },

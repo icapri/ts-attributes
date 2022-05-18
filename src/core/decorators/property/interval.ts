@@ -1,5 +1,5 @@
 import { Formatter } from "../../formatters";
-import { PropertyAnnotator } from "../../types";
+import { Nullish, PropertyAnnotator } from "../../types";
 import { Validator } from "../../validators";
 
 /**
@@ -14,7 +14,7 @@ export function interval(
   from: Date,
   to: Date,
   including = true
-): PropertyAnnotator<Date> {
+): PropertyAnnotator<Nullish<Date>> {
   if (from > to || (from === to && !including)) {
     const segment = `${including ? "[" : "("}${from}, ${to}${
       including ? "]" : ")"
@@ -28,10 +28,15 @@ export function interval(
 
     Object.defineProperty(target, key, {
       set: (nextValue: any) => {
-        if (!Validator.isDate(nextValue)) {
+        if (!Validator.isNullOrUndefined(nextValue) && !Validator.isDate(nextValue)) {
           throw new Error(
             `Value of '${key}' should be a valid date object. (${target.constructor.name})`
           );
+        }
+
+        if (Validator.isNullOrUndefined(nextValue)) {
+          currentValue = nextValue as any;
+          return;
         }
 
         const time: number = nextValue.getTime();

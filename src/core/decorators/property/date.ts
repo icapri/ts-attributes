@@ -1,11 +1,11 @@
-import { PropertyAnnotator } from "../../types";
+import { Nullish, PropertyAnnotator } from "../../types";
 import { Validator } from "../../validators";
 
 /**
  * Checks whether the property to which this decorator is applied is a
  * valid date object.
  */
-export function date(): PropertyAnnotator<Date | null | undefined> {
+export function date(): PropertyAnnotator<Nullish<Date>> {
   return <T extends object, K extends keyof T>(
     target: T,
     key: K

@@ -1,4 +1,4 @@
-import { PositiveInt, PropertyAnnotator } from '../../types';
+import { Nullish, PositiveInt, PropertyAnnotator } from '../../types';
 import { Validator } from '../../validators';
 
 /**
@@ -8,7 +8,7 @@ import { Validator } from '../../validators';
  */
 export function float<N extends number>(
   decimal: PositiveInt<N>
-): PropertyAnnotator<number> {
+): PropertyAnnotator<Nullish<number>> {
   return <T extends object, K extends keyof T>(
     target: T,
     key: K
@@ -18,7 +18,7 @@ export function float<N extends number>(
 
     Object.defineProperty(target, key, {
       set: (nextValue: any) => {
-        if (!Validator.isNumber(nextValue)) {
+        if (!Validator.isNullOrUndefined(nextValue) && !Validator.isNumber(nextValue)) {
           throw new Error(
             `Value of '${key}' should be a float number with ${decimal} decimal digits. (${
               target.constructor.name

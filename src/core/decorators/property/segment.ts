@@ -1,4 +1,4 @@
-import { PropertyAnnotator } from "../../types";
+import { Nullish, PropertyAnnotator } from "../../types";
 import { Validator } from "../../validators";
 
 /**
@@ -13,7 +13,7 @@ export function segment(
   from: number,
   to: number,
   including = true
-): PropertyAnnotator<number> {
+): PropertyAnnotator<Nullish<number>> {
   if (from > to || (from === to && !including)) {
     const segment = `${including ? "[" : "("}${from}, ${to}${
       including ? "]" : ")"
@@ -27,10 +27,15 @@ export function segment(
 
     Object.defineProperty(target, key, {
       set: (nextValue: any) => {
-        if (!Validator.isNumber(nextValue)) {
+        if (!Validator.isNullOrUndefined(nextValue) && !Validator.isNumber(nextValue)) {
           throw new Error(
             `Value of '${key}' should be a valid number. (${target.constructor.name})`
           );
+        }
+
+        if (Validator.isNullOrUndefined(nextValue)) {
+          currentValue = nextValue as any;
+          return;
         }
 
         if (including && (nextValue < from || nextValue > to)) {
