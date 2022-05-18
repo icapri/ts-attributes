@@ -1,6 +1,6 @@
 {
   "name": "ts-attributes",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Provides auxiliary typescript decorators.",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -19,7 +19,10 @@
     "type": "git",
     "url": "git+https://github.com/i-kapri/ts-attributes.git"
   },
-  "keywords": ["TypeScript", "Decorators"],
+  "keywords": [
+    "TypeScript",
+    "Decorators"
+  ],
   "author": "I. Kapri",
   "license": "MIT",
   "bugs": {
