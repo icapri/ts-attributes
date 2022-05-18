@@ -15,10 +15,10 @@ export function segment(
   including = true
 ): PropertyAnnotator<Nullish<number>> {
   if (from > to || (from === to && !including)) {
-    const segment = `${including ? "[" : "("}${from}, ${to}${
+    const borders = `${including ? "[" : "("}${from}, ${to}${
       including ? "]" : ")"
     }`;
-    throw new Error(`The segment ${segment} is invalid.`);
+    throw new Error(`The segment ${borders} is invalid.`);
   }
 
   return <T extends object, K extends keyof T>(target: T, key: K): void => {

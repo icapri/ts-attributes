@@ -6,21 +6,21 @@ import { Validator } from '../../validators';
  * property i. e. is a required property and its value can only be read.
  */
 export function key(): PropertyAnnotator {
-  return <T extends object, K extends keyof T>(target: T, key: K): void => {
+  return <T extends object, K extends keyof T>(target: T, propertyKey: K): void => {
     // get the current value of the property
-    let currentValue = target[key];
+    let currentValue = target[propertyKey];
 
-    Object.defineProperty(target, key, {
+    Object.defineProperty(target, propertyKey, {
       set: (nextValue: any) => {
         if (Validator.isNullOrUndefined(nextValue)) {
           throw new Error(
-            `Property '${key}' is required in ${target.constructor.name}.`
+            `Property '${propertyKey}' is required in ${target.constructor.name}.`
           );
         }
 
         if (Validator.isDefined(currentValue)) {
           throw new Error(
-            `Cannot assign to '${key}' because it is a read-only property. (${
+            `Cannot assign to '${propertyKey}' because it is a read-only property. (${
               target.constructor.name
             })`
           );

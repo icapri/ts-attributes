@@ -18,7 +18,7 @@ export function date(): PropertyAnnotator<Nullish<Date>> {
         if (!Validator.isNullOrUndefined(nextValue) && !Validator.isDate(nextValue)) {
           throw new Error(`Value of '${key}' is not a valid date object.`);
         }
-        currentValue = <any>nextValue;
+        currentValue = nextValue as any;
       },
       get: () => currentValue,
     });

@@ -1,21 +1,26 @@
 {
   "name": "ts-attributes",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Provides auxiliary typescript decorators.",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
   "scripts": {
     "build": "tsc",
     "format": "prettier --write \"src/**/*.ts\" \"src/**/*.js\"",
     "lint": "tslint -p tsconfig.json",
+    "postversion" : "git push && git push --tags",
     "prepare" : "npm run build",
-    "test": "jest --config jestconfig.json"
+    "prepublishOnly" : "npm test && npm run lint",
+    "preversion" : "npm run lint",
+    "test": "jest --config jestconfig.json",
+    "version" : "npm run format && git add -A src"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/i-kapri/ts-attributes.git"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": ["TypeScript", "Decorators"],
+  "author": "I. Kapri",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/i-kapri/ts-attributes/issues"
