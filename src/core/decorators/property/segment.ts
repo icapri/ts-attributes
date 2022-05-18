@@ -1,5 +1,5 @@
-import { Nullish, PropertyAnnotator } from "../../types";
-import { Validator } from "../../validators";
+import { Nullish, PropertyAnnotator } from '../../types';
+import { Validator } from '../../validators';
 
 /**
  * Checks whether the value of the property is within the determined segment.
@@ -9,15 +9,9 @@ import { Validator } from "../../validators";
  * @returns a property decorator which makes sure the value of the property
  * is within the determined borders.
  */
-export function segment(
-  from: number,
-  to: number,
-  including = true
-): PropertyAnnotator<Nullish<number>> {
+export function segment(from: number, to: number, including = true): PropertyAnnotator<Nullish<number>> {
   if (from > to || (from === to && !including)) {
-    const borders = `${including ? "[" : "("}${from}, ${to}${
-      including ? "]" : ")"
-    }`;
+    const borders = `${including ? '[' : '('}${from}, ${to}${including ? ']' : ')'}`;
     throw new Error(`The segment ${borders} is invalid.`);
   }
 
@@ -28,9 +22,7 @@ export function segment(
     Object.defineProperty(target, key, {
       set: (nextValue: any) => {
         if (!Validator.isNullOrUndefined(nextValue) && !Validator.isNumber(nextValue)) {
-          throw new Error(
-            `Value of '${key}' should be a valid number. (${target.constructor.name})`
-          );
+          throw new Error(`Value of '${key}' should be a valid number. (${target.constructor.name})`);
         }
 
         if (Validator.isNullOrUndefined(nextValue)) {
@@ -40,17 +32,13 @@ export function segment(
 
         if (including && (nextValue < from || nextValue > to)) {
           throw new Error(
-            `Value of '${key}' should be a number between ${from} and ${to} including them. (${
-              target.constructor.name
-            })`
+            `Value of '${key}' should be a number between ${from} and ${to} including them. (${target.constructor.name})`,
           );
         }
 
         if (!including && (nextValue <= from || nextValue >= to)) {
           throw new Error(
-            `Value of '${key}' should be a number between ${from} and ${to}. (${
-              target.constructor.name
-            })`
+            `Value of '${key}' should be a number between ${from} and ${to}. (${target.constructor.name})`,
           );
         }
 

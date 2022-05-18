@@ -2,9 +2,9 @@
  * Contains the default date format options.
  */
 const defaultDateOptions: Intl.DateTimeFormatOptions = {
-  year: "numeric",
-  month: "2-digit",
-  day: "numeric",
+  year: 'numeric',
+  month: '2-digit',
+  day: 'numeric',
 };
 
 /**
@@ -18,8 +18,8 @@ export abstract class Formatter {
    */
   public static formatDate(
     date: Date,
-    locale = "en-US",
-    options: Intl.DateTimeFormatOptions = defaultDateOptions
+    locale = 'en-US',
+    options: Intl.DateTimeFormatOptions = defaultDateOptions,
   ): string {
     return Intl.DateTimeFormat(locale, options).format(date);
   }

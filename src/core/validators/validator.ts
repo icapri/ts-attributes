@@ -7,10 +7,7 @@ export abstract class Validator {
    * @param object {object} Contains an object to be checked for a given property.
    * @param key {string | number | symbol} Contains a value to be checked whether it is the key of the given object.
    */
-  public static hasProperty<T extends object>(
-    object: T,
-    key: string | number | symbol
-  ): key is keyof T {
+  public static hasProperty<T extends object>(object: T, key: string | number | symbol): key is keyof T {
     return Object.prototype.hasOwnProperty.call(object, key);
   }
 
@@ -28,7 +25,7 @@ export abstract class Validator {
    * @param value Contains the value to be checked whether it is an array.
    */
   public static isArray(value: any): value is any[] {
-    return Object.prototype.toString.call(value) === "[object Array]";
+    return Object.prototype.toString.call(value) === '[object Array]';
   }
 
   /**
@@ -36,7 +33,7 @@ export abstract class Validator {
    * @param value Contains the value to be checked whether it is a boolean value.
    */
   public static isBoolean(value: any): value is boolean {
-    return typeof value === "boolean";
+    return typeof value === 'boolean';
   }
 
   /**
@@ -44,10 +41,7 @@ export abstract class Validator {
    * @param value Contains the value to be checked whether it is a valid date object.
    */
   public static isDate(value: any): value is Date {
-    return (
-      Object.prototype.toString.call(value) === "[object Date]" &&
-      !isNaN(value.getTime())
-    );
+    return Object.prototype.toString.call(value) === '[object Date]' && !isNaN(value.getTime());
   }
 
   /**
@@ -70,7 +64,7 @@ export abstract class Validator {
       String(value)
         .toLowerCase()
         .match(
-          /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+          /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
         ) != null
     );
   }
@@ -80,23 +74,12 @@ export abstract class Validator {
    * @param value Contains the value to be checked whether it represents an empty value.
    * @returns whether the value is empty.
    */
-  public static isEmpty<T>(
-    value: T | null | undefined
-  ): value is null | undefined {
-    const isFalsy: boolean =
-      Validator.isNullOrUndefined(value) ||
-      (Validator.isBoolean(value) && !value);
-    const isEmptyString: boolean = Validator.isString(value) && value === "";
-    const isEmptyNumber: boolean = typeof value === "number" && isNaN(value);
-    const isEmptyArray: boolean =
-      Validator.isArray(value) && value.length === 0;
-    return (
-      isFalsy ||
-      isEmptyString ||
-      isEmptyNumber ||
-      isEmptyArray ||
-      Validator.isEmptyObject(value)
-    );
+  public static isEmpty<T>(value: T | null | undefined): value is null | undefined {
+    const isFalsy: boolean = Validator.isNullOrUndefined(value) || (Validator.isBoolean(value) && !value);
+    const isEmptyString: boolean = Validator.isString(value) && value === '';
+    const isEmptyNumber: boolean = typeof value === 'number' && isNaN(value);
+    const isEmptyArray: boolean = Validator.isArray(value) && value.length === 0;
+    return isFalsy || isEmptyString || isEmptyNumber || isEmptyArray || Validator.isEmptyObject(value);
   }
 
   /**
@@ -104,9 +87,7 @@ export abstract class Validator {
    * @param value Contains the object to be checked whether it is empty.
    * @returns whether the given object is an empty object.
    */
-  public static isEmptyObject<T>(
-    value: T | null | undefined
-  ): value is null | undefined {
+  public static isEmptyObject<T>(value: T | null | undefined): value is null | undefined {
     return (
       Validator.isObject(value) &&
       !Object.getOwnPropertyNames(value).length &&
@@ -153,10 +134,7 @@ export abstract class Validator {
    * @param value Contains the value to be checked whether it is null a string of white spaces.
    */
   public static isNullOrWhiteSpace(value: any): boolean {
-    return (
-      Validator.isNullOrUndefined(value) ||
-      (Validator.isString(value) && value.trim().length === 0)
-    );
+    return Validator.isNullOrUndefined(value) || (Validator.isString(value) && value.trim().length === 0);
   }
 
   /**
@@ -164,7 +142,7 @@ export abstract class Validator {
    * @param value Contains the value to be checked whether it is a number.
    */
   public static isNumber(value: any): value is number {
-    return typeof value === "number" && isFinite(value);
+    return typeof value === 'number' && isFinite(value);
   }
 
   /**
@@ -172,7 +150,7 @@ export abstract class Validator {
    * @param value Contains the value to be checked whether it is an object.
    */
   public static isObject(value: any): value is object {
-    return Object.prototype.toString.call(value) === "[object Object]";
+    return Object.prototype.toString.call(value) === '[object Object]';
   }
 
   /**
@@ -195,7 +173,7 @@ export abstract class Validator {
       return false;
     }
     // check whether the constructor has an object-specific method
-    if (!Validator.hasProperty(prototype, "isPrototypeOf")) {
+    if (!Validator.hasProperty(prototype, 'isPrototypeOf')) {
       return false;
     }
     // most likely now it is a plain object
@@ -208,7 +186,7 @@ export abstract class Validator {
    * @returns whether the given value is a string.
    */
   public static isString(value: any): value is string {
-    return typeof value === "string";
+    return typeof value === 'string';
   }
 
   /**
@@ -217,6 +195,6 @@ export abstract class Validator {
    * @returns whether either the type or the value of the parameter is undefined.
    */
   public static isUndefined(value: any): value is undefined {
-    return typeof value === "undefined" || value === undefined;
+    return typeof value === 'undefined' || value === undefined;
   }
 }

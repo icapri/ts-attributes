@@ -12,9 +12,7 @@ export function required(): PropertyAnnotator {
     Object.defineProperty(target, key, {
       set: (nextValue: any) => {
         if (Validator.isNullOrUndefined(nextValue)) {
-          throw new Error(
-            `Property '${key}' is required in ${target.constructor.name}.`
-          );
+          throw new Error(`Property '${key}' is required in ${target.constructor.name}.`);
         }
         currentValue = nextValue;
       },

@@ -13,9 +13,7 @@ export function readOnly(): PropertyAnnotator {
       set: (nextValue: any) => {
         if (Validator.isDefined(currentValue)) {
           throw new Error(
-            `Cannot assign to '${propertyKey}' because it is a read-only property. (${
-              target.constructor.name
-            })`
+            `Cannot assign to '${propertyKey}' because it is a read-only property. (${target.constructor.name})`,
           );
         }
         currentValue = nextValue;

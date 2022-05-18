@@ -20,10 +20,7 @@ export type PositiveInt<N extends number> = number extends N
 /**
  * Represents the signature of the property decorator.
  */
-export type PropertyAnnotator<TPropertyType = any> = <
-  T extends object,
-  K extends keyof T
->(
+export type PropertyAnnotator<TPropertyType = any> = <T extends object, K extends keyof T>(
   target: T,
-  key: T[K] extends TPropertyType ? K : never
+  key: T[K] extends TPropertyType ? K : never,
 ) => void;

@@ -13,16 +13,12 @@ export function key(): PropertyAnnotator {
     Object.defineProperty(target, propertyKey, {
       set: (nextValue: any) => {
         if (Validator.isNullOrUndefined(nextValue)) {
-          throw new Error(
-            `Property '${propertyKey}' is required in ${target.constructor.name}.`
-          );
+          throw new Error(`Property '${propertyKey}' is required in ${target.constructor.name}.`);
         }
 
         if (Validator.isDefined(currentValue)) {
           throw new Error(
-            `Cannot assign to '${propertyKey}' because it is a read-only property. (${
-              target.constructor.name
-            })`
+            `Cannot assign to '${propertyKey}' because it is a read-only property. (${target.constructor.name})`,
           );
         }
         currentValue = nextValue as any;
