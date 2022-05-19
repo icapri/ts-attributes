@@ -2,9 +2,9 @@ import { Nullish, PositiveInt, PropertyAnnotator } from '../../types';
 import { Validator } from '../../validators';
 
 /**
- *
- * @param decimal
- * @returns
+ * Floats a number to the given number of decimal digits.
+ * @param decimal Contains the number of decimal digits.
+ * @returns the rounded number.
  */
 export function float<N extends number>(decimal: PositiveInt<N>): PropertyAnnotator<Nullish<number>> {
   return <T extends object, K extends keyof T>(target: T, key: K): void => {
