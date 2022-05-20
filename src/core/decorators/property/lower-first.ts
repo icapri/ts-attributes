@@ -15,7 +15,7 @@ export function lowerFirst(): PropertyAnnotator<Nullish<string>> {
     Object.defineProperty(target, key, {
       set: (nextValue: any) => {
         if (!Validator.isNullOrUndefined(nextValue) && !Validator.isString(nextValue)) {
-          throw new Error(`Value of '${key}' is not a string. ${target.constructor.name}.`);
+          throw new Error(`Value of '${key}' is not a string. (${target.constructor.name})`);
         }
 
         if (Validator.isString(nextValue)) {

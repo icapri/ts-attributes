@@ -30,6 +30,15 @@ API Documentation
 
 ## Property Decorators
 
+- `creditCardNumber(accepts: CreditCardType | CreditCardType[])` Checks whether the value of the property is a valid credit card number. This method also refines the value of the property in case the credit card number is a string like `5105-1051-0510-5100`. In this case the '-' characters are removed from the string for convenience.
+
+_Example:_
+```typescript
+class Account {
+  @creditCardNumber(CreditCardType.Visa) visaCardNr: string = '4111111111111111'; // correct!
+}
+```
+
 - `date()` Checks whether the property to which this decorator is applied is a valid date object; otherwise an error is thrown.
 
 _Example:_

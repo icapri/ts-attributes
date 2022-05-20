@@ -1,3 +1,4 @@
+export * from './core/decorators/property/credit-card-number';
 export * from './core/decorators/property/date';
 export * from './core/decorators/property/email';
 export * from './core/decorators/property/escape';

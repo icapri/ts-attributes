@@ -16,7 +16,7 @@ export function escape(): PropertyAnnotator<Nullish<string>> {
     Object.defineProperty(target, key, {
       set: (nextValue: any) => {
         if (!Validator.isNullOrUndefined(nextValue) && !Validator.isString(nextValue)) {
-          throw new Error(`Value of '${key}' should be a string. ${target.constructor.name}.`);
+          throw new Error(`Value of '${key}' should be a string. (${target.constructor.name})`);
         }
 
         if (Validator.isString(nextValue)) {
