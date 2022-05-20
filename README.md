@@ -5,7 +5,7 @@ This package provides helpful property decorators which can be used expecially f
 E. g.:
 
 ```typescript
-export class UserDto {
+class UserDto {
   @readOnly()
   public id: string;
 
@@ -30,13 +30,12 @@ API Documentation
 
 ## Property Decorators
 
-- `date()` Checks whether the property to which this decorator is applied is a valid date object; otherwise an error is thrown at compile time.
+- `date()` Checks whether the property to which this decorator is applied is a valid date object; otherwise an error is thrown.
 
 _Example:_
 ```typescript
-export class User {
-  @date()
-  created: Date = new Date('blahblah'); // error!
+class User {
+  @date() created: Date = new Date('blahblah'); // error!
 }
 ```
 
@@ -44,9 +43,19 @@ export class User {
 
 _Example:_
 ```typescript
-export class Customer {
-  @email()
-  emailAddress: string = 'someinvalidemail.com'; // error!
+class Customer {
+  @email() emailAddress: string = 'someinvalidemail.com'; // error!
+}
+```
+
+- `escape()` Removes or replaces illegal characters of the string value of the given property.
+
+_Example:_
+```typescript
+class Link {
+  @escape()
+  url: string = `<script src="some/source.js">var & @+?</script>`;
+  // %26lt;script src=%26quot;some%2Fsource.js%26quot;%26gt;var %26amp; @%2B%3F%26lt;%2Fscript%26gt;
 }
 ```
 
@@ -54,9 +63,17 @@ export class Customer {
 
 _Example:_
 ```typescript
-export class BankAccount {
-  @float(2)
-  balance: number = 56848.6699; // value: 56848.67
+class BankAccount {
+  @float(2) balance: number = 56848.6699; // value: 56848.67
+}
+```
+
+- `iban(country: Country)` Checks whether the string value of the given property is a valid IBAN of the given country; otherwise an error is thrown.
+
+_Example:_
+```typescript
+class Account {
+  @iban(Country.Germany) iban: string = 'DE75 5121 0800 1245 1261 99'; // correct!
 }
 ```
 
@@ -64,28 +81,118 @@ export class BankAccount {
 
 _Example:_
 ```typescript
-export class Person {
-  @integer()
-  age: number = -55; // error!
+class Person {
+  @integer() age: number = -1.1; // error!
 }
 ```
 
-- `interval(from: Date, to: Date)` Checks whether the value of the property is within the determined segment.
+- `interval(from: Date, to: Date)` Checks whether the value of the property is within the determined time interval.
 
 _Example:_
 ```typescript
-export class Citizen {
-  @interval(new Date('1995-12-17T03:24:00'), new Date())
-  dateOfBirth: Date = new Date('1991-12-17'); // error!
+class Citizen {
+  @interval(new Date('1995-12-17'), new Date()) dateOfBirth: Date = new Date('1991-12-17'); // error!
 }
 ```
 
-- `key()` Checks whether the property fulfills the criteria for being a primary key property i. e. is a required property and its value can only be read.
+- `key()` Checks whether the property fulfills the criteria for being a primary key property i. e. is a required property and its value is read-only.
 
 _Example:_
 ```typescript
-export class ClientDto {
-  @key()
-  id: string = undefined as unknown as string; // error!
+class ClientDto {
+  @key() id: string = undefined as unknown as string; // error!
+}
+```
+
+- `lowerFirst()` Converts the first character of the value of the string property to lower case.
+
+_Example:_
+```typescript
+class Student {
+  @lowerFirst() hobby: string = 'Guitar'; // guitar
+}
+```
+
+- `lowercase()` Converts the value of a property of type string to lower case.
+
+_Example:_
+```typescript
+class Applicant {
+  @lowercase() note: string = 'bLaH BlAh'; // blah blah
+}
+```
+
+- `negativeInteger()` Checks whether the value of the property is a negative integer.
+
+_Example:_
+```typescript
+class X {
+  @negativeInteger() x: number = 1; // error!
+}
+```
+
+- `notNull()` Checks whether the property has a value other than `null` set; otherwise throws.
+
+_Example:_
+```typescript
+class Pupil {
+  @notNull() age: number = null as unknown as number; // error!
+}
+```
+
+- `positiveInteger()` Checks whether the value of the property is a positive integer including zero.
+
+_Example:_
+```typescript
+class X {
+  @positiveInteger() x: number = -1; // error!
+}
+```
+
+- `readOnly()` Makes the given property read-only.
+
+_Example:_
+```typescript
+class Visitor {
+  @readOnly() id: string = 'somevalue';
+}
+
+const visitor = new Visitor();
+visitor.id = 'othervalue'; // error!
+```
+
+- `required()` Checks whether the property has a value other than `null` or `undefined` set; otherwise throws.
+
+_Example:_
+```typescript
+class Pupil {
+  @required() age: number = undefined as unknown as number; // error!
+}
+```
+
+- `segment(from: number, to: number)` Checks whether the value of the property is within the determined segment.
+
+_Example:_
+```typescript
+class X {
+  @segment(-1, 1) x: number = 2; // error!
+}
+```
+
+- `upperFirst()` Capitalizes the first character of the value of the string property.
+
+_Example:_
+```typescript
+class Student {
+  @upperFirst() name: string = 'johnny'; // Johnny
+}
+```
+
+- `uppercase()` Capitalizes the string value of the property to which this decorator is being applied.
+
+_Example:_
+```typescript
+class Applicant {
+  @uppercase() passportNo: string = 'ab1234567l'; // AB1234567L
 }
 ```

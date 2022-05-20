@@ -13,7 +13,9 @@
     "prepublishOnly": "npm test && npm run lint",
     "preversion": "npm run lint",
     "version": "npm run format && git add -A src",
-    "postversion": "git push && git push --tags"
+    "postversion": "git push && git push --tags",
+    "increaseVersionPatch": "npm version patch",
+    "publish": "npm publish"
   },
   "repository": {
     "type": "git",

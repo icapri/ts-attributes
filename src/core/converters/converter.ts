@@ -40,6 +40,7 @@ export abstract class Converter {
     secure = secure.replace(/\?/g, '%3F');
     secure = secure.replace(/#/g, '%23');
     secure = secure.replace(/&/g, '%26');
+    // tslint:disable-next-line: quotemark
     secure = secure.replace(/'/g, "''");
     return secure;
   }
