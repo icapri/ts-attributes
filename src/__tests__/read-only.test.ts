@@ -1,3 +1,11 @@
+import { date, readOnly } from '../index';
+
+class Visitor {
+  @readOnly()
+  id: string = 'somevalue';
+}
+
 test('readOnly() Decorator', () => {
-  expect(true).toBe(true);
+  const visitor = new Visitor();
+  expect(visitor.id).toBe('somevalue');
 });

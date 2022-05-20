@@ -4,6 +4,7 @@
 export abstract class Validator {
   /**
    * Checks whether a given object contains a property with a given key.
+   *
    * @param object {object} Contains an object to be checked for a given property.
    * @param key {string | number | symbol} Contains a value to be checked whether it is the key of the given object.
    */
@@ -13,6 +14,7 @@ export abstract class Validator {
 
   /**
    * Checks whether the given input parameter has a non-falsy value.
+   *
    * @param value Contains the input to be checked whether it represents a non-falsy value.
    * @returns whether the given input parameter has a non-falsy value.
    */
@@ -22,6 +24,7 @@ export abstract class Validator {
 
   /**
    * Checks whether the input parameter is an array.
+   *
    * @param value Contains the value to be checked whether it is an array.
    */
   public static isArray(value: any): value is any[] {
@@ -30,6 +33,7 @@ export abstract class Validator {
 
   /**
    * Checks whether the input parameter is a boolean value.
+   *
    * @param value Contains the value to be checked whether it is a boolean value.
    */
   public static isBoolean(value: any): value is boolean {
@@ -38,6 +42,7 @@ export abstract class Validator {
 
   /**
    * Checks whether a given value is a valid date object.
+   *
    * @param value Contains the value to be checked whether it is a valid date object.
    */
   public static isDate(value: any): value is Date {
@@ -46,6 +51,7 @@ export abstract class Validator {
 
   /**
    * Checks whether the input parameter is a defined value.
+   *
    * @param value Contains the value to be checked whether it is defined.
    */
   public static isDefined<T>(value: T | undefined): value is T {
@@ -54,6 +60,7 @@ export abstract class Validator {
 
   /**
    * Checks whether a string is a valid email address.
+   *
    * @param value Contains the value to be checked whether it is a valid email.
    */
   public static isEmail(value: any): value is string {
@@ -71,6 +78,7 @@ export abstract class Validator {
 
   /**
    * Checks whether the input parameter represents an empty value.
+   *
    * @param value Contains the value to be checked whether it represents an empty value.
    * @returns whether the value is empty.
    */
@@ -84,6 +92,7 @@ export abstract class Validator {
 
   /**
    * Checks whether a given object is empty.
+   *
    * @param value Contains the object to be checked whether it is empty.
    * @returns whether the given object is an empty object.
    */
@@ -97,6 +106,7 @@ export abstract class Validator {
 
   /**
    * Checks whether a given value is of type float.
+   *
    * @param value Contains the value to be checked whether it is a float number.
    * @returns whether the given value is a float number.
    */
@@ -106,6 +116,7 @@ export abstract class Validator {
 
   /**
    * Checks whether a given value is of type integer.
+   *
    * @param value Contains the value to be checked whether it is an integer.
    * @returns whether the given value is an integer.
    */
@@ -115,6 +126,7 @@ export abstract class Validator {
 
   /**
    * Checks whether the input parameter addresses to some object id este ain't null.
+   *
    * @param value Contains the value to be checked whether it points somewhere.
    */
   public static isNull(value: any): value is null {
@@ -123,6 +135,7 @@ export abstract class Validator {
 
   /**
    * Checks whether the input parameter is null or not defined.
+   *
    * @param value Contains the value to be checked whether it is null or not defined.
    */
   public static isNullOrUndefined(value: any): value is null | undefined {
@@ -131,6 +144,7 @@ export abstract class Validator {
 
   /**
    * Checks whether the input parameter is null or a string of white spaces.
+   *
    * @param value Contains the value to be checked whether it is null a string of white spaces.
    */
   public static isNullOrWhiteSpace(value: any): boolean {
@@ -139,6 +153,7 @@ export abstract class Validator {
 
   /**
    * Checks whether the input parameter is a number.
+   *
    * @param value Contains the value to be checked whether it is a number.
    */
   public static isNumber(value: any): value is number {
@@ -147,6 +162,7 @@ export abstract class Validator {
 
   /**
    * Checks whether the input parameter is an object.
+   *
    * @param value Contains the value to be checked whether it is an object.
    */
   public static isObject(value: any): value is object {
@@ -155,6 +171,7 @@ export abstract class Validator {
 
   /**
    * Checks whether the input parameter is a plain object.
+   *
    * @param value Contains the value to be checked whether it is a plain object.
    * @returns whether the given input parameter is a plain object.
    */
@@ -182,6 +199,7 @@ export abstract class Validator {
 
   /**
    * Checks whether a given value is of type string.
+   *
    * @param value Contains the value to be checked whether it is a string.
    * @returns whether the given value is a string.
    */
@@ -191,6 +209,7 @@ export abstract class Validator {
 
   /**
    * Checks whether a given parameter is of type undefined or has no value set.
+   *
    * @param value Contains the value to be checked whether it is not defined.
    * @returns whether either the type or the value of the parameter is undefined.
    */

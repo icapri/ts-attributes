@@ -3,6 +3,9 @@ import { Validator } from '../../validators';
 
 /**
  * Capitalizes the first character of the value of the string property.
+ *
+ * @returns the property decorator which capitalizes the first letter of the
+ * string value of the given property.
  */
 export function upperFirst(): PropertyAnnotator<Nullish<string>> {
   return <T extends object, K extends keyof T>(target: T, propertyKey: K): void => {
@@ -12,7 +15,7 @@ export function upperFirst(): PropertyAnnotator<Nullish<string>> {
     Object.defineProperty(target, propertyKey, {
       set: (nextValue: any) => {
         if (!Validator.isNullOrUndefined(nextValue) && !Validator.isString(nextValue)) {
-          throw new Error(`Value of '${propertyKey}' should be a string. ${target.constructor.name}.`);
+          throw new Error(`Value of '${propertyKey}' is not a string. ${target.constructor.name}.`);
         }
 
         if (Validator.isString(nextValue)) {

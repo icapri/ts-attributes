@@ -3,9 +3,12 @@ import { Nullish, PropertyAnnotator } from '../../types';
 import { Validator } from '../../validators';
 
 /**
- * Converts the first character of the value of the string property to lower case.
+ * Removes or replaces illegal characters of the string value of the given property.
+ *
+ * @returns the property decorator which removes/replaced the undesired characters
+ * of the string value of the given property.
  */
-export function secure(): PropertyAnnotator<Nullish<string>> {
+export function escape(): PropertyAnnotator<Nullish<string>> {
   return <T extends object, K extends keyof T>(target: T, key: K): void => {
     // get the current value of the property
     let currentValue: any = target[key];

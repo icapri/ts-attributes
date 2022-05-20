@@ -2,7 +2,10 @@ import { Nullish, PropertyAnnotator } from '../../types';
 import { Validator } from '../../validators';
 
 /**
- * Converts the value of a property of type string to upper case.
+ * Converts the value of a property of type string to lower case.
+ *
+ * @returns the property decorator which converts the string value of the given
+ * property to lowercase.
  */
 export function lowercase(): PropertyAnnotator<Nullish<string>> {
   return <T extends object, K extends keyof T>(target: T, propertyKey: K): void => {

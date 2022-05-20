@@ -3,6 +3,9 @@ import { Validator } from '../../validators';
 
 /**
  * Converts the first character of the value of the string property to lower case.
+ *
+ * @returns the property decorator which makes sure that the string value of the given
+ * property starts with lower-case.
  */
 export function lowerFirst(): PropertyAnnotator<Nullish<string>> {
   return <T extends object, K extends keyof T>(target: T, key: K): void => {
@@ -12,7 +15,7 @@ export function lowerFirst(): PropertyAnnotator<Nullish<string>> {
     Object.defineProperty(target, key, {
       set: (nextValue: any) => {
         if (!Validator.isNullOrUndefined(nextValue) && !Validator.isString(nextValue)) {
-          throw new Error(`Value of '${key}' should be a string. ${target.constructor.name}.`);
+          throw new Error(`Value of '${key}' is not a string. ${target.constructor.name}.`);
         }
 
         if (Validator.isString(nextValue)) {

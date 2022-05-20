@@ -2,12 +2,14 @@ import { PropertyAnnotator } from '../../types';
 import { Validator } from '../../validators';
 
 /**
- * Sets the descriptor of the property to readonly.
+ * Makes the given property read-only.
+ *
+ * @returns the property decorator which makes the given property read-only.
  */
 export function readOnly(): PropertyAnnotator {
-  return <T extends object>(target: T, propertyKey: keyof T): void => {
+  return <T extends object, K extends keyof T>(target: T, propertyKey: K): void => {
     // get the current value of the property
-    let currentValue = target[propertyKey];
+    let currentValue: T[K] = target[propertyKey];
 
     Object.defineProperty(target, propertyKey, {
       set: (nextValue: any) => {
@@ -16,6 +18,7 @@ export function readOnly(): PropertyAnnotator {
             `Cannot assign to '${propertyKey}' because it is a read-only property. (${target.constructor.name})`,
           );
         }
+
         currentValue = nextValue;
       },
       get: () => currentValue,

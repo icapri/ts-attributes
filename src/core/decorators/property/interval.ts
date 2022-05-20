@@ -3,31 +3,32 @@ import { Nullish, PropertyAnnotator } from '../../types';
 import { Validator } from '../../validators';
 
 /**
- * Checks whether the value of the property is within the determined segment.
+ * Checks whether the value of the given property is within the determined segment.
+ *
  * @param from Contains the lower border of the segment.
  * @param to Contains the upper border of the segment.
- * @param including Contains whether to allow the values of the borders.
- * @returns a property decorator which makes sure the value of the property
- * is within the determined borders.
+ * @param includeBorders Contains whether to allow the values of the borders.
+ * @returns a property decorator which makes sure the value of the property is within
+ * the determined time interval.
  */
-export function interval(from: Date, to: Date, including = true): PropertyAnnotator<Nullish<Date>> {
-  if (from > to || (from === to && !including)) {
-    const segment = `${including ? '[' : '('}${from}, ${to}${including ? ']' : ')'}`;
-    throw new Error(`The segment ${segment} is invalid.`);
+export function interval(from: Date, to: Date, includeBorders = true): PropertyAnnotator<Nullish<Date>> {
+  if (from > to || (from === to && !includeBorders)) {
+    const timeInterval = `${includeBorders ? '[' : '('}${from}, ${to}${includeBorders ? ']' : ')'}`;
+    throw new Error(`The interval ${timeInterval} is not valid.`);
   }
 
-  return <T extends object, K extends keyof T>(target: T, key: K): void => {
+  return <T extends object, K extends keyof T>(target: T, propertyKey: K): void => {
     // get the current value of the property
-    let currentValue = target[key];
+    let currentValue: any = target[propertyKey];
 
-    Object.defineProperty(target, key, {
+    Object.defineProperty(target, propertyKey, {
       set: (nextValue: any) => {
         if (!Validator.isNullOrUndefined(nextValue) && !Validator.isDate(nextValue)) {
-          throw new Error(`Value of '${key}' should be a valid date object. (${target.constructor.name})`);
+          throw new Error(`Value of '${propertyKey}' is not a valid date object. (${target.constructor.name})`);
         }
 
         if (Validator.isNullOrUndefined(nextValue)) {
-          currentValue = nextValue as any;
+          currentValue = nextValue;
           return;
         }
 
@@ -38,19 +39,19 @@ export function interval(from: Date, to: Date, including = true): PropertyAnnota
         const dateFrom = Formatter.formatDate(from);
         const dateTo = Formatter.formatDate(to);
 
-        if (including && (time < timeFrom || time > timeTo)) {
+        if (includeBorders && (time < timeFrom || time > timeTo)) {
           throw new Error(
-            `Value of '${key}' should be a date between ${dateFrom} and ${dateTo} including them. (${target.constructor.name})`,
+            `Value of '${propertyKey}' is not a date between ${dateFrom} and ${dateTo} incl. them. (${target.constructor.name})`,
           );
         }
 
-        if (!including && (time <= timeFrom || time >= timeTo)) {
+        if (!includeBorders && (time <= timeFrom || time >= timeTo)) {
           throw new Error(
-            `Value of '${key}' should be a date between ${dateFrom} and ${dateTo}. (${target.constructor.name})`,
+            `Value of '${propertyKey}' is not a date between ${dateFrom} and ${dateTo}. (${target.constructor.name})`,
           );
         }
 
-        currentValue = nextValue as any;
+        currentValue = nextValue;
       },
       get: () => currentValue,
     });
