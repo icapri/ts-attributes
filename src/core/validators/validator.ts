@@ -70,9 +70,7 @@ export abstract class Validator {
     return (
       String(value)
         .toLowerCase()
-        .match(
-          /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-        ) != null
+        .match(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/) != null
     );
   }
 
@@ -97,11 +95,7 @@ export abstract class Validator {
    * @returns whether the given object is an empty object.
    */
   public static isEmptyObject<T>(value: T | null | undefined): value is null | undefined {
-    return (
-      Validator.isObject(value) &&
-      !Object.getOwnPropertyNames(value).length &&
-      !Object.getOwnPropertySymbols(value).length
-    );
+    return Validator.isObject(value) && !Object.getOwnPropertyNames(value).length && !Object.getOwnPropertySymbols(value).length;
   }
 
   /**

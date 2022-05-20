@@ -16,11 +16,7 @@ export abstract class Formatter {
    * @param date Contains the date object to be formatted.
    * @returns the string representing the date.
    */
-  public static formatDate(
-    date: Date,
-    locale = 'en-US',
-    options: Intl.DateTimeFormatOptions = defaultDateOptions,
-  ): string {
+  public static formatDate(date: Date, locale = 'en-US', options: Intl.DateTimeFormatOptions = defaultDateOptions): string {
     return Intl.DateTimeFormat(locale, options).format(date);
   }
 }

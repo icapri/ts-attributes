@@ -21,7 +21,7 @@ export abstract class CreditCardType {
  * method also refines the value of the property in case the credit card number
  * is a string like `5105-1051-0510-5100`. In this case the '-' characters are
  * removed from the string for convenience.
- * 
+ *
  * @param accepts Contains the type or types of credit cards which are accepted.
  * @returns the property descriptor of the given property which makes sure that
  * a valid credit card number is provided.

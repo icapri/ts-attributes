@@ -14,10 +14,7 @@ export function integer(): PropertyAnnotator<Nullish<number>> {
 
     Object.defineProperty(target, propertyKey, {
       set: (nextValue: any) => {
-        if (
-          (!Validator.isNullOrUndefined(nextValue) && !Validator.isNumber(nextValue)) ||
-          !Number.isInteger(nextValue)
-        ) {
+        if ((!Validator.isNullOrUndefined(nextValue) && !Validator.isNumber(nextValue)) || !Number.isInteger(nextValue)) {
           throw new Error(`Value of '${propertyKey}' is not a valid integer. (${target.constructor.name})`);
         }
 

@@ -32,15 +32,11 @@ export function segment(from: number, to: number, including = true): PropertyAnn
         }
 
         if (including && (nextValue < from || nextValue > to)) {
-          throw new Error(
-            `Value of '${propertyKey}' is not a number between ${from} and ${to} incl. them. (${target.constructor.name})`,
-          );
+          throw new Error(`Value of '${propertyKey}' is not a number between ${from} and ${to} incl. them. (${target.constructor.name})`);
         }
 
         if (!including && (nextValue <= from || nextValue >= to)) {
-          throw new Error(
-            `Value of '${propertyKey}' is not a number between ${from} and ${to}. (${target.constructor.name})`,
-          );
+          throw new Error(`Value of '${propertyKey}' is not a number between ${from} and ${to}. (${target.constructor.name})`);
         }
 
         currentValue = nextValue;

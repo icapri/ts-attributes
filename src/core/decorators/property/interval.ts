@@ -40,15 +40,11 @@ export function interval(from: Date, to: Date, includeBorders = true): PropertyA
         const dateTo = Formatter.formatDate(to);
 
         if (includeBorders && (time < timeFrom || time > timeTo)) {
-          throw new Error(
-            `Value of '${propertyKey}' is not a date between ${dateFrom} and ${dateTo} incl. them. (${target.constructor.name})`,
-          );
+          throw new Error(`Value of '${propertyKey}' is not a date between ${dateFrom} and ${dateTo} incl. them. (${target.constructor.name})`);
         }
 
         if (!includeBorders && (time <= timeFrom || time >= timeTo)) {
-          throw new Error(
-            `Value of '${propertyKey}' is not a date between ${dateFrom} and ${dateTo}. (${target.constructor.name})`,
-          );
+          throw new Error(`Value of '${propertyKey}' is not a date between ${dateFrom} and ${dateTo}. (${target.constructor.name})`);
         }
 
         currentValue = nextValue;

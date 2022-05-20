@@ -47,19 +47,12 @@ export type PickRequired<T> = Pick<T, RequiredKeys<T>>;
 /**
  * Represents a positive integer.
  */
-export type PositiveInt<N extends number> = number extends N
-  ? never
-  : `${N}` extends `-${string}` | `${string}.${string}`
-  ? never
-  : N;
+export type PositiveInt<N extends number> = number extends N ? never : `${N}` extends `-${string}` | `${string}.${string}` ? never : N;
 
 /**
  * Represents the signature of the property decorator.
  */
-export type PropertyAnnotator<TPropertyType = any> = <T extends object, K extends keyof T>(
-  target: T,
-  key: T[K] extends TPropertyType ? K : never,
-) => void;
+export type PropertyAnnotator<TPropertyType = any> = <T extends object, K extends keyof T>(target: T, key: T[K] extends TPropertyType ? K : never) => void;
 
 /**
  * Represents a type composed of the readonly keys of an object.
