@@ -1,6 +1,6 @@
 {
   "name": "ts-attributes",
-  "version": "1.0.10",
+  "version": "1.0.11",
   "description": "Provides auxiliary typescript decorators.",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
