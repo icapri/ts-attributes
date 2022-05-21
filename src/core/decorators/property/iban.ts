@@ -135,7 +135,7 @@ export function iban(accepts: Country | Country[] | 'all' = 'all'): PropertyAnno
 
 /**
  * Gets the first match of the IBAN regex; if none found null is returned.
- * 
+ *
  * @param value Contains the value to be checked whether any of the country regexes match it.
  * @param countries Contains the country regexes for IBAN.
  * @returns the value found in the matches; null is returned if no match is found.
