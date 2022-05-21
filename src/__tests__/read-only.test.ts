@@ -1,4 +1,4 @@
-import { date, readOnly } from '../index';
+import { readOnly } from '../index';
 
 class Visitor {
   @readOnly()
