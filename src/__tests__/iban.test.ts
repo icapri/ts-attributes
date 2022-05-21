@@ -15,6 +15,12 @@ class BankAccount {
 
   @iban(Country.Albania)
   ibanTrash: string = 'AL35202111090000000001234567sometrashatend';
+
+  @iban()
+  ibanAll1: string = 'al35202111090000000001234567';
+
+  @iban()
+  ibanAll2: string = 'de75512108001245126199';
 }
 
 test('iban() Decorator', () => {
@@ -24,4 +30,6 @@ test('iban() Decorator', () => {
   expect(account.ibanDe).toBe('DE75512108001245126199');
   expect(account.ibanDeFormatted).toBe('DE75512108001245126199');
   expect(account.ibanLower).toBe('DE75512108001245126199');
+  expect(account.ibanAll1).toBe('AL35202111090000000001234567');
+  expect(account.ibanAll2).toBe('DE75512108001245126199');
 });

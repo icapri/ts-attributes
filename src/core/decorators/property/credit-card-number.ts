@@ -26,7 +26,7 @@ export abstract class CreditCardType {
  * @returns the property descriptor of the given property which makes sure that
  * a valid credit card number is provided.
  */
-export function creditCardNumber(accepts: CreditCardType | CreditCardType[]): PropertyAnnotator<Nullish<string | number>> {
+export function creditCardNumber(accepts: CreditCardType | CreditCardType[] | 'all' = 'all'): PropertyAnnotator<Nullish<string | number>> {
   return <T extends object, K extends keyof T>(target: T, propertyKey: K): void => {
     // get the current value of the property
     let currentValue: any = target[propertyKey];
@@ -44,14 +44,20 @@ export function creditCardNumber(accepts: CreditCardType | CreditCardType[]): Pr
 
         const value = Validator.isString(nextValue) ? nextValue.replace(/\s/g, '').replace(/[^0-9]/g, '') : nextValue.toString();
         let isMatch: boolean = false;
-        if (Validator.isArray(accepts)) {
+        if (accepts instanceof RegExp && value.match(accepts)) {
+          isMatch = true;
+        } else if (Validator.isArray(accepts)) {
           accepts.forEach((creditCardType: CreditCardType) => {
             if (creditCardType instanceof RegExp && value.match(creditCardType)) {
               isMatch = true;
             }
           });
-        } else if (accepts instanceof RegExp && value.match(accepts)) {
-          isMatch = true;
+        } else if (accepts === 'all') {
+          Object.values(CreditCardType).forEach((creditCardType: RegExp) => {
+            if (value.match(creditCardType)) {
+              isMatch = true;
+            }
+          });
         }
 
         if (!isMatch) {

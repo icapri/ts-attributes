@@ -85,15 +85,11 @@ export abstract class Country {
  * Checks whether the string value of the given property is a valid IBAN of the given
  * country; otherwise an error is thrown.
  *
- * @param country Contains the name of the country.
+ * @param accepts Contains the country/-ies accepted.
  * @returns the property decorator which checks the validity of the IBAN based on the
  * input country.
  */
-export function iban(country: Country): PropertyAnnotator<Nullish<string>> {
-  if (!(country instanceof RegExp)) {
-    throw new Error('An error ocurred while processed the input country.');
-  }
-
+export function iban(accepts: Country | Country[] | 'all' = 'all'): PropertyAnnotator<Nullish<string>> {
   return <T extends object, K extends keyof T>(target: T, propertyKey: K): void => {
     // get the current value of the property
     let currentValue: any = target[propertyKey];
@@ -109,14 +105,47 @@ export function iban(country: Country): PropertyAnnotator<Nullish<string>> {
           return;
         }
 
-        const matches: Nullable<RegExpMatchArray> = String(nextValue.replace(/\s/g, '')).toUpperCase().match(country);
-        if (Validator.hasValue(matches)) {
-          currentValue = matches[0];
-        } else {
-          throw new Error(`Value of '${propertyKey}' is not a valid IBAN. (${target.constructor.name})`);
+        const value = nextValue.replace(/\s/g, '').toUpperCase();
+        if (accepts instanceof RegExp) {
+          const matches: Nullable<RegExpMatchArray> = value.match(accepts);
+          if (Validator.hasValue(matches)) {
+            currentValue = matches[0];
+            return;
+          }
+        } else if (Validator.isArray(accepts)) {
+          const m = match(value, accepts);
+          if (m != null) {
+            currentValue = m;
+            return;
+          }
+        } else if (accepts === 'all') {
+          const m = match(value, Object.values(Country));
+          if (m != null) {
+            currentValue = m;
+            return;
+          }
         }
+
+        throw new Error(`Value of '${propertyKey}' is not a valid IBAN. (${target.constructor.name})`);
       },
       get: () => currentValue,
     });
   };
+}
+
+/**
+ * Gets the first match of the IBAN regex; if none found null is returned.
+ * 
+ * @param value Contains the value to be checked whether any of the country regexes match it.
+ * @param countries Contains the country regexes for IBAN.
+ * @returns the value found in the matches; null is returned if no match is found.
+ */
+function match(value: string, countries: Country[]): string | null {
+  for (const country of countries) {
+    const matchings = country instanceof RegExp ? value.match(country) : [];
+    if (Validator.hasValue(matchings)) {
+      return matchings[0];
+    }
+  }
+  return null;
 }

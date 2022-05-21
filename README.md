@@ -30,7 +30,7 @@ API Documentation
 
 ## Property Decorators
 
-- `creditCardNumber(accepts: CreditCardType | CreditCardType[])` Checks whether the value of the property is a valid credit card number. This method also refines the value of the property in case the credit card number is a string like `5105-1051-0510-5100`. In this case the '-' characters are removed from the string for convenience.
+- `creditCardNumber(accepts: CreditCardType | CreditCardType[] | 'all' = 'all')` Checks whether the value of the property is a valid credit card number. This method also refines the value of the property in case the credit card number is a string like `5105-1051-0510-5100`. In this case the '-' characters are removed from the string for convenience.
 
 _Example:_
 ```typescript
@@ -77,12 +77,12 @@ class BankAccount {
 }
 ```
 
-- `iban(country: Country)` Checks whether the string value of the given property is a valid IBAN of the given country; otherwise an error is thrown.
+- `iban(country: Country | Country[] | 'all' = 'all')` Checks whether the string value of the given property is a valid IBAN of the given country; otherwise an error is thrown.
 
 _Example:_
 ```typescript
 class Account {
-  @iban(Country.Germany) iban: string = 'DE75 5121 0800 1245 1261 99'; // correct!
+  @iban() iban: string = 'DE75 5121 0800 1245 1261 99'; // correct!
 }
 ```
 

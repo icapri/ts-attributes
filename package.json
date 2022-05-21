@@ -14,8 +14,7 @@
     "preversion": "npm run lint",
     "version": "npm run format && git add -A src",
     "postversion": "git push && git push --tags",
-    "increaseVersionPatch": "npm version patch",
-    "publish": "npm publish"
+    "publish": "npm version 1.0.7 && npm publish"
   },
   "repository": {
     "type": "git",

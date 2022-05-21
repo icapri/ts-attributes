@@ -4,6 +4,10 @@
     "tslint-config-prettier"
   ],
   "rules": {
-    "quotemark": [true, "single", "jsx-double"]
+    "quotemark": [
+      true,
+      "single",
+      "jsx-double"
+    ]
   }
 }

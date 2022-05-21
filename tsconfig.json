@@ -5,7 +5,9 @@
     "declaration": true,
     "outDir": "./lib",
     "strict": true,
-    "experimentalDecorators": true
+    "experimentalDecorators": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true
   },
   "include": ["src"],
   "exclude": [

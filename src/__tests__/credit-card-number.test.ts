@@ -40,6 +40,12 @@ class User {
   cc16: string = '4012888888881881';
   @creditCardNumber(CreditCardType.Visa)
   cc17: string = '4222222222222';
+
+  @creditCardNumber()
+  cc18?: number = 378282246310005;
+
+  @creditCardNumber(CreditCardType.JCB)
+  cc19: string = '3566002020360505';
 }
 
 test('creditCardNumber() Decorator', () => {
@@ -63,4 +69,7 @@ test('creditCardNumber() Decorator', () => {
   expect(account.cc15).toBe('4111111111111111');
   expect(account.cc16).toBe('4012888888881881');
   expect(account.cc17).toBe('4222222222222');
+
+  expect(account.cc18).toBe(378282246310005);
+  expect(account.cc19).toBe('3566002020360505');
 });
