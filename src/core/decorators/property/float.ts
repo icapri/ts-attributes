@@ -4,10 +4,10 @@ import { Validator } from '../../validators';
 /**
  * Rounds a number to the given number of decimal digits.
  *
- * @param decimal Contains the number of decimal digits.
+ * @param decimalDigits Contains the number of decimal digits.
  * @returns the property decorator which rounds the decimal value.
  */
-export function float<N extends number>(decimal: PositiveInt<N>): PropertyAnnotator<Nullish<number>> {
+export function float<N extends number>(decimalDigits: PositiveInt<N>): PropertyAnnotator<Nullish<number>> {
   return <T extends object, K extends keyof T>(target: T, propertyKey: K): void => {
     // get the current value of the property
     let currentValue: any = target[propertyKey];
@@ -19,7 +19,7 @@ export function float<N extends number>(decimal: PositiveInt<N>): PropertyAnnota
         }
 
         if (Validator.isFloat(nextValue)) {
-          currentValue = +nextValue.toFixed(decimal);
+          currentValue = +nextValue.toFixed(decimalDigits);
         } else {
           currentValue = nextValue;
         }

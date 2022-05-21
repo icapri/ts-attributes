@@ -18,9 +18,9 @@ In order for all this to work, first of all please make sure that the node `"exp
 
 ```json
 {
-  // ...
+  ...
   "compilerOptions": {
-    // ...
+    ...
     "experimentalDecorators": true   
   }
 }
@@ -77,7 +77,7 @@ class BankAccount {
 }
 ```
 
-- `iban(country: Country | Country[] | 'all' = 'all')` Checks whether the string value of the given property is a valid IBAN of the given country; otherwise an error is thrown.
+- `iban(accepts: Country | Country[] | 'all' = 'all')` Checks whether the string value of the given property is a valid IBAN of the given country; otherwise an error is thrown.
 
 _Example:_
 ```typescript
