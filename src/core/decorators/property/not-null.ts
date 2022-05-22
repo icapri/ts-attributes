@@ -14,7 +14,7 @@ export function notNull(): PropertyAnnotator {
     Object.defineProperty(target, key, {
       set: (nextValue: any) => {
         if (Validator.isNull(nextValue)) {
-          throw new Error(`Value of '${key}' is null. (${target.constructor.name})`);
+          throw new Error(`Value of '${key}' should not be null. (${target.constructor.name})`);
         }
         currentValue = nextValue;
       },

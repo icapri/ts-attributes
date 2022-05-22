@@ -15,7 +15,7 @@ export function date(): PropertyAnnotator<Nullish<Date>> {
     Object.defineProperty(target, propertyKey, {
       set: (nextValue) => {
         if (!Validator.isNullOrUndefined(nextValue) && !Validator.isDate(nextValue)) {
-          throw new Error(`Value of '${propertyKey}' is not a valid date object. (${target.constructor.name})`);
+          throw new Error(`Value of '${propertyKey}' should be a valid date object. (${target.constructor.name})`);
         }
         currentValue = nextValue;
       },

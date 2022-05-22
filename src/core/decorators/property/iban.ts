@@ -3,9 +3,6 @@ import { Validator } from '../../validators';
 
 /**
  * Contains countries and the corresponding regular expressions of their IBAN-s.
- *
- * @todo Possibly there are countries which are not listed below, they should also
- * be added to the `Country` class.
  */
 export abstract class Country {
   public static readonly Albania: RegExp = /AL[a-zA-Z0-9]{2}\s?([0-9]{4}\s?){2}([a-zA-Z0-9]{4}\s?){4}\s?/gm;
@@ -97,7 +94,7 @@ export function iban(accepts: Country | Country[] | 'all' = 'all'): PropertyAnno
     Object.defineProperty(target, propertyKey, {
       set: (nextValue: any) => {
         if (!Validator.isNullOrUndefined(nextValue) && !Validator.isString(nextValue)) {
-          throw new Error(`Value of '${propertyKey}' is not a valid IBAN. (${target.constructor.name})`);
+          throw new Error(`Value of '${propertyKey}' should be a valid IBAN. (${target.constructor.name})`);
         }
 
         if (Validator.isNullOrUndefined(nextValue)) {
@@ -126,7 +123,7 @@ export function iban(accepts: Country | Country[] | 'all' = 'all'): PropertyAnno
           }
         }
 
-        throw new Error(`Value of '${propertyKey}' is not a valid IBAN. (${target.constructor.name})`);
+        throw new Error(`Value of '${propertyKey}' should be a valid IBAN. (${target.constructor.name})`);
       },
       get: () => currentValue,
     });

@@ -1,45 +1,35 @@
 # TS Attributes
 
-This package provides helpful property decorators which can be used expecially for view model validation or for decorating the properties of the DTOs. This package is the best tool to use for making a property non-writable, for making sure that an object property receives only values of a given type and withing some defined boundaries, and much more.
+This package provides a vast variety of TypeScript decorators of high importance. These decorators make sure that only valid values are considered but some of them do also make conversions like converting a string to upper-case or unharmful "refinements" of the input values like removing harmful characters from strings, removing unnecessary characters from them and more on.
 
-E. g.:
+Before enjoying the functionalities offered by this package please make sure that the node `"experimentalDecorators"` inside the `"compilerOptions"` of your `tsconfig.json` file is set to `true` as follows:
 
 ```typescript
-class UserDto {
-  @readOnly()
-  public id: string;
-
-  @positiveInteger()
-  public age: number;
-}
-```
-
-In order for all this to work, first of all please make sure that the node `"experimentalDecorators"` inside the `"compilerOptions"` of your `tsconfig.json` file is set to `true` as follows:
-
-```json
+// tsconfig.json
 {
-  ...
+  // ...
   "compilerOptions": {
-    ...
+    // ...
     "experimentalDecorators": true   
   }
 }
 ```
 
-API Documentation
+##API Documentation
 
-## Property Decorators
+### Property Decorators
 
-- `creditCardNumber(accepts: CreditCardType | CreditCardType[] | 'all' = 'all')` Checks whether the value of the property is a valid credit card number. This method also refines the value of the property in case the credit card number is a string like `5105-1051-0510-5100`. In this case the '-' characters are removed from the string for convenience.
+- **`creditCardNumber(accepts: CreditCardType | CreditCardType[] | 'all')`**
+Makes sure that the value of the property is a valid credit card number. This method also refines the value of the property in case the credit card number is a string like `5105-1051-0510-5100`. In this case the '-' characters are removed from the string for convenience. Defaults to `all`.
 
 _Example:_
 ```typescript
 class Account {
-  @creditCardNumber(CreditCardType.Visa) visaCardNr: string = '4111111111111111'; // correct!
+  @creditCardNumber() creditCardNr: string = '4111111111111111'; // correct!
 }
 ```
 
-- `date()` Checks whether the property to which this decorator is applied is a valid date object; otherwise an error is thrown.
+- **`date()`** Makes sure that the property to which this decorator is applied is a valid date object; otherwise throws.
 
 _Example:_
 ```typescript
@@ -48,7 +38,7 @@ class User {
 }
 ```
 
-- `email()` Checks whether the value of the property is a string which represents a valid email address. If the string is not a valid email address an error is thrown at compile time.
+- **`email()`** Makes sure that the value of the property is a string which represents a valid email address; otherwise throws.
 
 _Example:_
 ```typescript
@@ -57,7 +47,7 @@ class Customer {
 }
 ```
 
-- `escape()` Removes or replaces illegal characters of the string value of the given property.
+- **`escape()`** Removes or replaces illegal characters of the string value of the given property.
 
 _Example:_
 ```typescript
@@ -68,16 +58,16 @@ class Link {
 }
 ```
 
-- `float(decimals: number)` Rounds a decimal number to the given number of decimal digits.
+- **`float(decimals: number)`** Rounds a decimal number to the given number of decimal digits.
 
 _Example:_
 ```typescript
 class BankAccount {
-  @float(2) balance: number = 56848.6699; // value: 56848.67
+  @float(2) balance: number = 56.669; // value: 56.67
 }
 ```
 
-- `iban(accepts: Country | Country[] | 'all' = 'all')` Checks whether the string value of the given property is a valid IBAN of the given country; otherwise an error is thrown.
+- **`iban(accepts: Country | Country[] | 'all')`** Makes suret that the string value of the given property is a valid IBAN; otherwise throws. Defaults to `all`.
 
 _Example:_
 ```typescript
@@ -86,7 +76,7 @@ class Account {
 }
 ```
 
-- `integer()` Checks whether the value of a property is an integer; otherwise throws an error.
+- **`integer()`** Makes sure that the value of a property is an integer; otherwise throws.
 
 _Example:_
 ```typescript
@@ -95,16 +85,17 @@ class Person {
 }
 ```
 
-- `interval(from: Date, to: Date)` Checks whether the value of the property is within the determined time interval.
+- **`interval(from: Date, to: Date)`** Makes sure that the value of the given property is within the determined time interval.
 
 _Example:_
 ```typescript
 class Citizen {
-  @interval(new Date('1995-12-17'), new Date()) dateOfBirth: Date = new Date('1991-12-17'); // error!
+  @interval(new Date('1995-12-17'), new Date())
+  born: Date = new Date('1991-12-17'); // error!
 }
 ```
 
-- `key()` Checks whether the property fulfills the criteria for being a primary key property i. e. is a required property and its value is read-only.
+- **`key()`** Makes sure that the property fulfills the criteria for being a key i. e. is a required property and its value is read-only.
 
 _Example:_
 ```typescript
@@ -113,7 +104,7 @@ class ClientDto {
 }
 ```
 
-- `lowerFirst()` Converts the first character of the value of the string property to lower case.
+- **`lowerFirst()`** Converts the first character of the value of the string property to lower case.
 
 _Example:_
 ```typescript
@@ -122,7 +113,7 @@ class Student {
 }
 ```
 
-- `lowercase()` Converts the value of a property of type string to lower case.
+- **`lowercase()`** Converts the value of a property of type string to lower case.
 
 _Example:_
 ```typescript
@@ -131,7 +122,7 @@ class Applicant {
 }
 ```
 
-- `negativeInteger()` Checks whether the value of the property is a negative integer.
+- **`negativeInteger()`** Makes sure that the value of the given property is a negative integer.
 
 _Example:_
 ```typescript
@@ -140,7 +131,7 @@ class X {
 }
 ```
 
-- `notNull()` Checks whether the property has a value other than `null` set; otherwise throws.
+- **`notNull()`** Makes sure that the property has a value other than `null` set; otherwise throws.
 
 _Example:_
 ```typescript
@@ -149,7 +140,7 @@ class Pupil {
 }
 ```
 
-- `positiveInteger()` Checks whether the value of the property is a positive integer including zero.
+- **`positiveInteger()`** Makes sure that the value of the property is a positive integer incl. zero.
 
 _Example:_
 ```typescript
@@ -158,7 +149,7 @@ class X {
 }
 ```
 
-- `readOnly()` Makes the given property read-only.
+- **`readOnly()`** Makes the given property read-only.
 
 _Example:_
 ```typescript
@@ -170,7 +161,7 @@ const visitor = new Visitor();
 visitor.id = 'othervalue'; // error!
 ```
 
-- `required()` Checks whether the property has a value other than `null` or `undefined` set; otherwise throws.
+- **`required()`** Makes sure that neither `null` nor `undefined` is set as a value to the property to which this decorator is applied; otherwise throws.
 
 _Example:_
 ```typescript
@@ -179,7 +170,7 @@ class Pupil {
 }
 ```
 
-- `segment(from: number, to: number)` Checks whether the value of the property is within the determined segment.
+- **`segment(from: number, to: number)`** Makes sure that the value of the property is within the determined segment; otherwise an error is thrown.
 
 _Example:_
 ```typescript
@@ -188,7 +179,7 @@ class X {
 }
 ```
 
-- `upperFirst()` Capitalizes the first character of the value of the string property.
+- **`upperFirst()`** Capitalizes the first character of the value of the string property.
 
 _Example:_
 ```typescript
@@ -197,7 +188,7 @@ class Student {
 }
 ```
 
-- `uppercase()` Capitalizes the string value of the property to which this decorator is being applied.
+- **`uppercase()`** Capitalizes the string value of the property to which this decorator is being applied.
 
 _Example:_
 ```typescript

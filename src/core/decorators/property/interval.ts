@@ -24,7 +24,7 @@ export function interval(from: Date, to: Date, includeBorders = true): PropertyA
     Object.defineProperty(target, propertyKey, {
       set: (nextValue: any) => {
         if (!Validator.isNullOrUndefined(nextValue) && !Validator.isDate(nextValue)) {
-          throw new Error(`Value of '${propertyKey}' is not a valid date object. (${target.constructor.name})`);
+          throw new Error(`Value of '${propertyKey}' should be a valid date object. (${target.constructor.name})`);
         }
 
         if (Validator.isNullOrUndefined(nextValue)) {
@@ -40,11 +40,11 @@ export function interval(from: Date, to: Date, includeBorders = true): PropertyA
         const dateTo = Formatter.formatDate(to);
 
         if (includeBorders && (time < timeFrom || time > timeTo)) {
-          throw new Error(`Value of '${propertyKey}' is not a date between ${dateFrom} and ${dateTo} incl. them. (${target.constructor.name})`);
+          throw new Error(`Value of '${propertyKey}' should be a date between ${dateFrom} and ${dateTo} incl. them. (${target.constructor.name})`);
         }
 
         if (!includeBorders && (time <= timeFrom || time >= timeTo)) {
-          throw new Error(`Value of '${propertyKey}' is not a date between ${dateFrom} and ${dateTo}. (${target.constructor.name})`);
+          throw new Error(`Value of '${propertyKey}' should be a date between ${dateFrom} and ${dateTo}. (${target.constructor.name})`);
         }
 
         currentValue = nextValue;

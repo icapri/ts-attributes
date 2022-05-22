@@ -59,22 +59,6 @@ export abstract class Validator {
   }
 
   /**
-   * Checks whether a string is a valid email address.
-   *
-   * @param value Contains the value to be checked whether it is a valid email.
-   */
-  public static isEmail(value: any): value is string {
-    if (!Validator.isString(value)) {
-      return false;
-    }
-    return (
-      String(value)
-        .toLowerCase()
-        .match(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/) != null
-    );
-  }
-
-  /**
    * Checks whether the input parameter represents an empty value.
    *
    * @param value Contains the value to be checked whether it represents an empty value.

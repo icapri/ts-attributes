@@ -34,7 +34,7 @@ export function creditCardNumber(accepts: CreditCardType | CreditCardType[] | 'a
     Object.defineProperty(target, propertyKey, {
       set: (nextValue: any) => {
         if (!Validator.isNullOrUndefined(nextValue) && !Validator.isString(nextValue) && !Validator.isNumber(nextValue)) {
-          throw new Error(`Value of '${propertyKey}' is neither a string nor a number. ${target.constructor.name}.`);
+          throw new Error(`Value of '${propertyKey}' should be either a string or a number. ${target.constructor.name}.`);
         }
 
         if (Validator.isNullOrUndefined(nextValue)) {

@@ -15,7 +15,7 @@ export function uppercase(): PropertyAnnotator<Nullish<string>> {
     Object.defineProperty(target, propertyKey, {
       set: (nextValue: any) => {
         if (!Validator.isNullOrUndefined(nextValue) && !Validator.isString(nextValue)) {
-          throw new Error(`Value of '${propertyKey}' is not a string. (${target.constructor.name})`);
+          throw new Error(`Value of '${propertyKey}' should be a string. (${target.constructor.name})`);
         }
 
         if (Validator.isString(nextValue)) {
